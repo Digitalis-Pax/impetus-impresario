@@ -50,7 +50,7 @@
 	"no-empty-links": true,
 	"no-hard-tabs": false,
 	"no-inline-html": {
-		"allowed_elements": ["img"]
+		"allowed_elements": ["img", "style", "sub", "sup", "mark", "del"]
 	},
 	"no-missing-space-atx": true,
 	"no-multiple-blanks": true,
