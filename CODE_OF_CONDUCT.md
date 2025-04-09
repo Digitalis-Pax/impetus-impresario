@@ -4,7 +4,6 @@ We strive to be an egalitarian, ethical, transparent organization. This commitme
 
 ## Core Values
 
-
 1. We shall only take actions that respect and support the fundamental, inalienable rights of individuals to the resources required to support their life and enjoyment of that life, including but not limited to clean air, clean water, nutritious food, health and health care, education, liberty of person, security of person, and freedom of thought and belief.
 2. We shall treat each individual equally and respectfully regardless of taxonomic classification, biology, association, thought or belief, social status, or other attributes.
 3. Every member of our organization must take responsibility and shall be accountable for their decisions, actions, and the consequences.
