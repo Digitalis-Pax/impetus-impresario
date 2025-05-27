@@ -4,7 +4,6 @@
 !**/.vscode/settings.*.json
 !**/.vscode/tasks.json
 !**/.vscode/launch.json
-!**/.vscode/extensions.json
 !**/.vscode/*.code-snippets
 **/.history/
 *.vsix
@@ -92,22 +91,32 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-# Other Common Files
-*.bak
+# Temp files
 *.tmp
-*.orig
-*.rej
+*.temp
 **/tmp/
 **/temp/
 
 # Security Files
+cacerts
 *.jks
 *.keystore
+keystore.*
+*.truststore
+truststore.*
+*.p12
 *.pem
+*.crt
 *.key
+*.ca-bundle
+*.p7b
+*.p7s
+*.der
+*.cer
+*.pfx
 
 # Logs
-logs
+**/logs/
 *.log
 *-debug.log*
 *-error.log*
@@ -130,13 +139,13 @@ pids
 **/build/
 *.tsbuildinfo
 .next
-out
+**/out/
 .nuxt
 **/dist/
 **/target/
 **/.vitepress
 .docusaurus
-.serverless/
+**/.serverless/
 
 # Cache and Dependency Files
 **/bower_components/
@@ -146,23 +155,18 @@ out
 .npm
 .eslintcache
 .stylelintcache
-.rpt2_cache/
-.rts2_cache_cjs/
-.rts2_cache_es/
-.rts2_cache_umd/
+**/.rpt2_cache/
+**/.rts2_cache_cjs/
+**/.rts2_cache_es/
+**/.rts2_cache_umd/
 .node_repl_history
 .yarn-integrity
 **/.cache/
 **/.parcel-cache/
 .temp
 .cache
-.fusebox/
-.dynamodb/
-.tern-port
+**/.fusebox/
+**/.dynamodb/
+**/.tern-port
 **/.yarn/
 .pnp.*
-
-
-# Added by cargo
-
-/target

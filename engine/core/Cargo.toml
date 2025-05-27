@@ -1,0 +1,12 @@
+[package]
+name = "impetus-impresario-core"
+version.workspace = true
+authors.workspace = true
+description.workspace = true
+documentation.workspace = true
+edition = "2024"
+
+[lib]
+name = "impetus_impresario_core"
+
+[dependencies]

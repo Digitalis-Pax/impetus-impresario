@@ -1,20 +1,20 @@
-[package]
-name = "impetus-impresario"
+[workspace]
+members = ["core", "server"]
+resolver = "3"
+
+[workspace.package]
 version = "0.1.0-alpha.1"
-description = "Impetu Impresario (II) is a performant, scalable process automation and orchestration platform."
-license = "GPL-3.0-or-later"
-keywords = ["bpmn", "dmn", "orchestration", "workflow", "process"]
-repository = "https://github.com/JEleniel/impetus-impresario"
-publish = false
-edition = "2024"
+authors = ["JEleniel <https://github.com/JEleniel"]
+documentation = "https://JEleniel.github.io/impetus-impresario/"
+description = "The II Engine provides a robust and scalable execution environment. It supports real-time process execution, decision activation, and integration with other systems through either its RESTful API or as an embedded library."
 
-[lints.rust]
-unsafe_code = "forbid"
+[workspace.dependencies]
+impetus-impresario-core = { path = "core" }
 
-[dependencies]
-axum = { version = "0.8", features = ["http2", "json", "macros", "tokio", "tower-log", "form", "query"] }
-config = { version = "0.15", features = ["json"] }
-fern = { version = "0.7", features = ["chrono", "colored"] }
-serde_json = { version = "1.0" }
-tokio = { version = "1.44", features = ["full"] }
-tower = { version = "0.5", features = ['full'] }
+[profile.dev]
+opt-level = 1
+codegen-units = 128
+
+[profile.release]
+strip = true
+lto = true
