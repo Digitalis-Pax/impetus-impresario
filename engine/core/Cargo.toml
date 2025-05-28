@@ -10,3 +10,5 @@ edition = "2024"
 name = "impetus_impresario_core"
 
 [dependencies]
+tokio = { workspace = true }
+tracing = { workspace = true }
