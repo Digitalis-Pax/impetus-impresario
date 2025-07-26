@@ -1,0 +1,20 @@
+[package]
+name = "impetus-impresario-engine"
+description = { workspace = true }
+version = { workspace = true }
+documentation = { workspace = true }
+repository = { workspace = true }
+license = { workspace = true }
+keywords = { workspace = true }
+categories = { workspace = true }
+edition = { workspace = true }
+publish = { workspace = true }
+
+[lib]
+name = "impetus_impresario_engine"
+
+[dependencies]
+chrono = { workspace = true }
+tokio = { workspace = true }
+log = { workspace = true }
+fern = { workspace = true }

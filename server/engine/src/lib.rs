@@ -1,6 +1,5 @@
-use tracing::{info, instrument};
+use log::info;
 
-#[instrument]
 pub async fn run() {
     info!("Core initialized");
 }

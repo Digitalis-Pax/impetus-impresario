@@ -1,0 +1,30 @@
+[workspace]
+resolver = "3"
+members = ["cli", "common", "server"]
+
+[workspace.package]
+version = "1.0.0-alpha.1"
+edition = "2024"
+description = "Impetus Impresario is a process orchestration and workflow management tool designed from the ground up to prioritize security, performance, and flexibility."
+documentation = "https://Digitalis-Pax.github.io/impetus-impresario"
+repository = "https://github.com/Digitalis-Pax/impetus-impresario"
+license = "GPL-3.0-or-later"
+keywords = ["orchestration", "process", "workflow"]
+categories = ["asynchronous"]
+publish = false
+
+[workspace.dependencies]
+chrono = { version = "0.4", features = ["serde"] }
+config = { version = "0.15" }
+directories = { version = "6.0.0" }
+fern = { version = "0.7", features = ["chrono", "colored", "date-based"] }
+impetus-impresario-common = { path = "common" }
+impetus-impresario-engine = { path = "server/engine" }
+log = { version = "0.4", features = ["kv", "serde"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1" }
+tokio = { version = "1", features = ["full"] }
+uuid = { version = "1.17.0", features = ["v4"] }
+
+[workspace.lints.rust]
+unsafe_code = "forbid"

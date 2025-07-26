@@ -1,0 +1,118 @@
+{
+	"$id": "https://crystultima.org/impetus-impresario.config.schema.json",
+	"$schema": "https://json-schema.org/draft-07/schema#",
+	"additionalProperties": false,
+	"properties": {
+		"$schema": {
+			"type": "string"
+		},
+		"datastore": {
+			"type": "object",
+			"description": "The settings to connect to the data source",
+			"properties": {
+				"store_type": {
+					"description": "The type of data store provider",
+					"enum": ["MariaDB"],
+					"type": "string"
+				},
+				"host": {
+					"description": "The fully qualified hostname of the provider",
+					"type": "string"
+				},
+				"port": {
+					"default": 3306,
+					"description": "The port to use to connect with the provider",
+					"maximum": 65535,
+					"minimum": 1,
+					"type": "integer"
+				},
+				"schema": {
+					"description": "The schema (a.k.a. database) to use",
+					"type": "string"
+				},
+				"user": {
+					"description": "The user ID of a user with the following permissions: Create Temporary Table; Select, Insert, Delete, and Update  on Table *; Execute Function *; Execute Procedure *",
+					"type": "string"
+				},
+				"password": {
+					"description": "The password for the user, encrypted using the II CLI",
+					"type": "string"
+				}
+			},
+			"required": ["store_type", "host", "port", "schema", "user", "password"],
+			"additionalProperties": false
+		},
+		"oauth": {
+			"type": "object",
+			"description": "The settings for OAuth 2.0 and OIDC integration",
+			"properties": {
+				"auth_code_pkce": {
+					"$ref": "#/$defs/oauth",
+					"description": "The credentials to use for the OAuth Authorization Code Flow with Proof Key for Code Exchange (PKCE)"
+				},
+				"client_credential": {
+					"$ref": "#/$defs/oauth",
+					"description": "The credentials to use for the OAuth Client Credentials Flow"
+				}
+			},
+			"required": ["auth_code_pkce", "client_credential"]
+		},
+		"logging": {
+			"type": "object",
+			"properties": {
+				"enable_console": { "type": "boolean", "default": true },
+				"path": { "type": "string" },
+				"root_level": { "$ref": "#/$defs/logging_level", "default": "INFO" },
+				"targets": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"target": { "type": "string" },
+							"level": { "$ref": "#/$defs/logging_level" }
+						},
+						"required": ["target", "level"],
+						"additionalProperties": false
+					},
+					"additionalItems": false,
+					"minItems": 1
+				}
+			}
+		}
+	},
+	"required": ["oauth", "datastore"],
+	"type": "object",
+	"$defs": {
+		"oauth": {
+			"type": "object",
+			"properties": {
+				"client_id": {
+					"description": "The Client ID issued by the OAuth provider",
+					"maxLength": 100,
+					"minLength": 1,
+					"type": "string"
+				},
+				"client_secret": {
+					"description": "The Client Secret issued by the Oauth provider, encrypted using the II CLI",
+					"maxLength": 255,
+					"minLength": 1,
+					"type": "string"
+				},
+				"scopes": {
+					"additionalItems": false,
+					"items": {
+						"default": [],
+						"type": "string"
+					},
+					"type": "array"
+				}
+			},
+			"required": ["client_id", "client_secret"],
+			"additionalProperties": false
+		},
+		"logging_level": {
+			"type": "string",
+			"enum": ["TRACE", "DEBUG", "INFO", "WARN", "ERROR"]
+		}
+	}
+}

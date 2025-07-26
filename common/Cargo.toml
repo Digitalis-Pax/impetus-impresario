@@ -1,0 +1,20 @@
+[package]
+name = "impetus-impresario-common"
+version = { workspace = true }
+edition = { workspace = true }
+description = "Common structures and functions for Impetus Impresario"
+documentation = { workspace = true }
+repository = { workspace = true }
+license = { workspace = true }
+keywords = { workspace = true }
+categories = { workspace = true }
+publish = { workspace = true }
+
+[dependencies]
+base64 = "0.22.1"
+log = { workspace = true }
+machineid-crystal = "1.2.6"
+rand = "0.9.2"
+rpassword = "7.4.0"
+ruscrypt = "0.3.0"
+uuid = { workspace = true }
