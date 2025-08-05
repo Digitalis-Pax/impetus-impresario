@@ -4,13 +4,14 @@ use config::{Config, File};
 use directories::ProjectDirs;
 use serde::{Deserialize, Serialize};
 
-use crate::logging::LoggingConfiguration;
+use crate::{api::ApiConfiguration, logging::LoggingConfiguration};
 
 #[derive(Serialize, Deserialize, PartialEq, Clone, Debug)]
 pub struct Configuration {
     pub oauth_credential: Option<OAuthCredential>,
     pub datastore: DataStoreConfiguration,
     pub logging: LoggingConfiguration,
+    pub api: ApiConfiguration,
 }
 
 #[derive(Serialize, Deserialize, PartialEq, Clone, Debug)]
@@ -68,18 +69,19 @@ impl Configuration {
             && !fs::exists(&local_configuration_path).unwrap()
         {
             panic!(
-                "Unable to find a configuration at:\n{}\n{}\n{}",
+                "Unable to find a configuration at:\n\t{}\t\n{}\t\n{}",
                 direct_configuration_path.to_str().unwrap(),
                 system_configuration_path.to_str().unwrap(),
                 local_configuration_path.to_str().unwrap(),
             );
         }
 
-        let config_builder = Config::builder()
-            .set_default("logging.enable_console", true)
-            .unwrap()
-            .set_default("logging.root_level", log::Level::Info.as_str())
-            .unwrap()
+        let mut config_builder = Config::builder();
+
+        config_builder = ApiConfiguration::new(config_builder, "api");
+        config_builder = LoggingConfiguration::new(config_builder, "logging");
+
+        let config = config_builder
             .add_source(
                 File::with_name(direct_configuration_path.to_str().unwrap()).required(false),
             )
@@ -90,6 +92,6 @@ impl Configuration {
             .build()
             .unwrap();
 
-        config_builder.try_deserialize().unwrap()
+        config.try_deserialize::<Self>().unwrap()
     }
 }

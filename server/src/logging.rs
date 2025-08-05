@@ -4,7 +4,9 @@ use std::{
 };
 
 use chrono::SecondsFormat;
+use config::builder::BuilderState;
 use fern::colors::{Color, ColoredLevelConfig};
+use log::info;
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, PartialEq, Clone, Debug)]
@@ -36,12 +38,12 @@ impl LoggingConfiguration {
             let console = fern::Dispatch::new()
                 .format(move |out, message, record| {
                     out.finish(format_args!(
-                        "{color_line}[{date} {level} {target} {color_line}] {message}\x1B[0m",
-                        color_line =
+                        "{colors}[{date} {level} ]({target}) {message}",
+                        colors =
                             format_args!("\x1B[{}m", colors.get_color(&record.level()).to_fg_str()),
-                        date = chrono::Utc::now().to_rfc3339_opts(SecondsFormat::Millis, true),
+                        date = chrono::Utc::now().to_rfc3339_opts(SecondsFormat::Micros, true),
                         target = record.target(),
-                        level = colors.color(record.level()),
+                        level = record.level(),
                         message = message,
                     ));
                 })
@@ -71,7 +73,7 @@ impl LoggingConfiguration {
                     .format(|out, message, record| {
                         out.finish(format_args!(
                             "[{level} {date}] ({target}) {message}",
-                            date = chrono::Utc::now().to_rfc3339_opts(SecondsFormat::Millis, true),
+                            date = chrono::Utc::now().to_rfc3339_opts(SecondsFormat::Micros, true),
                             level = record.level(),
                             target = record.target(),
                             message = message,
@@ -99,5 +101,40 @@ impl LoggingConfiguration {
         fern.level(self.root_level.to_level_filter())
             .apply()
             .unwrap();
+
+        info!("----- Logging started -----");
+        if self.path.is_some() {
+            info!(
+                "Logging to a file at {}",
+                self.path.clone().unwrap().to_str().unwrap()
+            );
+        }
+        info!("Root logging set to {}.", self.root_level.as_str());
+        match &self.targets {
+            Some(targets) => {
+                for target in targets {
+                    info!(
+                        "Logging for {} set to {}",
+                        target.target,
+                        target.level.as_str()
+                    );
+                }
+            }
+            None => {}
+        }
+    }
+
+    pub fn new<DefaultState: BuilderState>(
+        builder: config::ConfigBuilder<DefaultState>,
+        key_base: &str,
+    ) -> config::ConfigBuilder<DefaultState> {
+        builder
+            .set_default(format!("{}.enable_console", key_base), true)
+            .unwrap()
+            .set_default(
+                format!("{}.root_level", key_base),
+                log::Level::Info.as_str(),
+            )
+            .unwrap()
     }
 }

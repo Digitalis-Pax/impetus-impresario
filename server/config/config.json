@@ -19,5 +19,17 @@
 			"client_secret": "tiIkxerQcux2hi6dPl5MRCDt/SLNjBz08VBd4PHJ/OLZe9eF0eC1F7ET1djWZwg+jCjHnESe3owLbnK5m5FJrHaySNX3b6lG6mLyJOt1ZP0="
 		}
 	},
-	"logging": { "root_level": "TRACE", "path": "/var/log/impetus-impresario" }
+	"api": {
+		"listen": [{ "address": "::", "port": 8123 }],
+		"tls": {
+			"key": "/etc/tls/eros-plain.key",
+			"certificate": "/etc/tls/eros.crt",
+			"password": "Yu/VKBGiCtQPFwNxpA4Voe2VH2GNMli1tBOVdRBOWaOv26+To6szXjgbHrqtewIdC27DVO7Eby6p7R8mmJZ5mg=="
+		}
+	},
+	"logging": {
+		"enable_console": true,
+		"root_level": "TRACE",
+		"path": "/var/log/impetus-impresario"
+	}
 }
