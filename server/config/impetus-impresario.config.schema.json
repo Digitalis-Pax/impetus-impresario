@@ -59,14 +59,24 @@
 		},
 		"api": {
 			"type": "object",
+			"description": "Configuration for the API endpoint(s)",
 			"properties": {
 				"listen": {
 					"type": "array",
+					"description": "The IP addresses and ports on which the API should listen. Defaults to all addresses (\"::\") and port 8443.",
 					"items": {
 						"type": "object",
 						"properties": {
-							"address": { "type": "string" },
-							"port": { "type": "number", "minimum": 1, "maximum": 65535 }
+							"address": {
+								"type": "string",
+								"description": "An IPv4 or IPv6 address on which to listen. To listen on all addresses use \"::\" or \"0.0.0.0\"."
+							},
+							"port": {
+								"type": "number",
+								"description": "The port on which to listen, between 1 and 65535.",
+								"minimum": 1,
+								"maximum": 65535
+							}
 						}
 					},
 					"required": ["address", "port"],
@@ -74,10 +84,16 @@
 				},
 				"tls": {
 					"type": "object",
+					"description": "Enables and configures TLS on all API endpoints",
 					"properties": {
-						"key": { "type": "string" },
-						"certificate": { "type": "string" },
-						"password": { "type": "string" }
+						"key": {
+							"type": "string",
+							"description": "The path to the TLS private key in unencrypted PEM format (e.g. \".key\" or \".pem\")"
+						},
+						"certificate": {
+							"type": "string",
+							"description": "The path to the TLS public certificate in PEM format (e.g. \".crt\" or \".pem\")"
+						}
 					},
 					"required": ["key", "certificate"],
 					"additionalProperties": false
@@ -118,13 +134,11 @@
 				"client_id": {
 					"description": "The Client ID issued by the OAuth provider",
 					"maxLength": 100,
-					"minLength": 1,
 					"type": "string"
 				},
 				"client_secret": {
 					"description": "The Client Secret issued by the Oauth provider, encrypted using the II CLI",
 					"maxLength": 255,
-					"minLength": 1,
 					"type": "string"
 				},
 				"scopes": {

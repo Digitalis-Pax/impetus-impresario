@@ -1,0 +1,34 @@
+{
+	"$schema": "./impetus-impresario.config.schema.json",
+	"datastore": {
+		"store_type": "MariaDB",
+		"host": "localhost",
+		"port": 3306,
+		"schema": "impetus",
+		"user": "impetus",
+		"password": ""
+	},
+	"oauth": {
+		"auth_code_pkce": {
+			"client_id": "impetus_pkce",
+			"client_secret": "",
+			"scopes": ["openid", "email", "profile"]
+		},
+		"client_credential": {
+			"client_id": "impetus_cc",
+			"client_secret": ""
+		}
+	},
+	"api": {
+		"listen": [{ "address": "::", "port": 8123 }],
+		"tls": {
+			"key": "/etc/tls/tls.key",
+			"certificate": "/etc/tls/tls.crt"
+		}
+	},
+	"logging": {
+		"enable_console": true,
+		"root_level": "WARN",
+		"path": "/var/log/impetus-impresario"
+	}
+}

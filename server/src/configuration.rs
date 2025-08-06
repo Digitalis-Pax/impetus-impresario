@@ -2,20 +2,21 @@ use std::{env, fs, path::PathBuf};
 
 use config::{Config, File};
 use directories::ProjectDirs;
+use impetus_impresario_common::encryption;
 use serde::{Deserialize, Serialize};
 
 use crate::{api::ApiConfiguration, logging::LoggingConfiguration};
 
 #[derive(Serialize, Deserialize, PartialEq, Clone, Debug)]
 pub struct Configuration {
-    pub oauth_credential: Option<OAuthCredential>,
+    pub oauth: OAuthConfiguration,
     pub datastore: DataStoreConfiguration,
     pub logging: LoggingConfiguration,
     pub api: ApiConfiguration,
 }
 
 #[derive(Serialize, Deserialize, PartialEq, Clone, Debug)]
-pub struct OAuth {
+pub struct OAuthConfiguration {
     pub auth_code_pkce: OAuthCredential,
     pub client_credential: OAuthCredential,
 }
@@ -92,6 +93,15 @@ impl Configuration {
             .build()
             .unwrap();
 
-        config.try_deserialize::<Self>().unwrap()
+        let key = impetus_impresario_common::encryption::get_machine_key();
+        let mut configuration = config.try_deserialize::<Self>().unwrap();
+        configuration.datastore.password =
+            encryption::decrypt(&configuration.datastore.password, &key);
+        configuration.oauth.auth_code_pkce.client_secret =
+            encryption::decrypt(&configuration.oauth.auth_code_pkce.client_secret, &key);
+        configuration.oauth.client_credential.client_secret =
+            encryption::decrypt(&configuration.oauth.client_credential.client_secret, &key);
+
+        configuration
     }
 }

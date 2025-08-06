@@ -1,12 +1,21 @@
 use std::sync::{Arc, Mutex};
 
 use axum::{
+    Router,
     extract::State,
     http::StatusCode,
     response::{IntoResponse, NoContent},
+    routing::get,
 };
 
 use crate::AppState;
+
+pub fn add_routes(router: Router<Arc<Mutex<AppState>>>) -> Router<Arc<Mutex<AppState>>> {
+    router
+        .route("/health/liveness", get(alive))
+        .route("/health/startup", get(starting))
+        .route("/health/readiness", get(ready))
+}
 
 pub async fn starting(State(state): State<Arc<Mutex<AppState>>>) -> impl IntoResponse {
     if state.lock().unwrap().ready {
