@@ -1,16 +1,17 @@
 # Project specific
-**/.anlyze/
-**/target/
-**/debug/
+config.json
+.anlyze/
+target/
+debug/
 
 # Visual Studio Code
-**/.vscode/*
-!**/.vscode/settings.json
-!**/.vscode/settings.*.json
-!**/.vscode/tasks.json
-!**/.vscode/launch.json
-!**/.vscode/*.code-snippets
-**/.history/
+.vscode/*
+!.vscode/settings.json
+!.vscode/settings.*.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/*.code-snippets
+.history/
 *.vsix
 .vscode-test
 
@@ -137,41 +138,41 @@ pids
 *.pid.lock
 
 # Intermediate, Coverage, and Output Files
-**/coverage/
+coverage/
 *.lcov
 .nyc_output
 .grunt
-**/build/
+build/
 *.tsbuildinfo
 .next
-**/out/
+out/
 .nuxt
-**/dist/
-**/target/
-**/.vitepress
+dist/
+target/
+.vitepress
 .docusaurus
-**/.serverless/
+.serverless/
 
 # Cache and Dependency Files
-**/bower_components/
-**/node_modules/
-**/jspm_packages/
-**/web_modules/
+bower_components/
+node_modules/
+jspm_packages/
+web_modules/
 .npm
 .eslintcache
 .stylelintcache
-**/.rpt2_cache/
-**/.rts2_cache_cjs/
-**/.rts2_cache_es/
-**/.rts2_cache_umd/
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
 .node_repl_history
 .yarn-integrity
-**/.cache/
-**/.parcel-cache/
+.cache/
+.parcel-cache/
 .temp
 .cache
-**/.fusebox/
-**/.dynamodb/
-**/.tern-port
-**/.yarn/
+.fusebox/
+.dynamodb/
+.tern-port
+.yarn/
 .pnp.*
